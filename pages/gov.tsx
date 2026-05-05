@@ -309,30 +309,62 @@ export default function GovDashboard() {
               </div>
             </div>
 
-            {/* Audit Log Widget */}
-            <div className="h-64 flex flex-col bg-surface-0">
+            {/* Tender Health Summary */}
+            <div className="flex-1 flex flex-col bg-surface-0 border-t border-[#E8E8E8]">
               <div className="px-5 py-3 border-b border-[#E8E8E8] flex items-center justify-between">
                 <h3 className="text-xs font-semibold tracking-wide uppercase text-nyaya-400 flex items-center gap-2">
-                  <Activity className="w-3.5 h-3.5" /> Live Audit Log
+                  <Activity className="w-3.5 h-3.5" /> Tender Health Summary
                 </h3>
               </div>
-              <div className="flex-1 overflow-y-auto p-4 space-y-3">
-                {auditData?.trail?.slice(0, 5).map(entry => (
-                  <div key={entry.id} className="flex gap-3">
-                    <div className="w-px h-full bg-surface-1 mt-2 relative">
-                      <div className="absolute top-0 -left-1 w-2 h-2 rounded-full bg-nyaya-600" />
+              <div className="p-4 flex-1 overflow-y-auto">
+                {/* Key Stats */}
+                <div className="grid grid-cols-3 gap-2 mb-6">
+                  <div className="bg-surface-1 rounded-md p-2 text-center border border-[#E8E8E8]">
+                    <div className="text-lg font-display text-nyaya-100 font-semibold">12</div>
+                    <div className="text-[9px] uppercase tracking-wider text-nyaya-500 mt-0.5">Active</div>
+                  </div>
+                  <div className="bg-verdict-yellow/10 rounded-md p-2 text-center border border-verdict-yellow/20">
+                    <div className="text-lg font-display text-verdict-yellow font-semibold">3</div>
+                    <div className="text-[9px] uppercase tracking-wider text-verdict-yellow mt-0.5">At-Risk</div>
+                  </div>
+                  <div className="bg-verdict-green/10 rounded-md p-2 text-center border border-verdict-green/20">
+                    <div className="text-lg font-display text-verdict-green font-semibold">68%</div>
+                    <div className="text-[9px] uppercase tracking-wider text-verdict-green mt-0.5">Avg Prog</div>
+                  </div>
+                </div>
+
+                {/* Mini Progress Bars */}
+                <div className="space-y-4">
+                  <div>
+                    <div className="flex justify-between items-end mb-1">
+                      <p className="text-xs font-medium text-nyaya-200">Border Outpost - Sector 4</p>
+                      <span className="text-[10px] text-nyaya-500">45%</span>
                     </div>
-                    <div className="flex-1">
-                      <p className="text-[10px] text-nyaya-500 mb-0.5">
-                        {mounted ? new Date(entry.timestamp + 'Z').toLocaleTimeString() : '--:--'}
-                      </p>
-                      <p className="text-xs text-nyaya-200">{entry.action.replace(/_/g, ' ')}</p>
-                      <p className="text-[10px] font-mono text-nyaya-500 mt-1 flex items-center gap-1">
-                        <Hash className="w-2.5 h-2.5" /> {entry.sha256_output.substring(0, 12)}...
-                      </p>
+                    <div className="w-full bg-surface-1 h-1.5 rounded-full overflow-hidden">
+                      <div className="h-full bg-verdict-green" style={{ width: '45%' }} />
                     </div>
                   </div>
-                )) || <p className="text-xs text-nyaya-500 text-center mt-4">Loading audit stream...</p>}
+                  
+                  <div>
+                    <div className="flex justify-between items-end mb-1">
+                      <p className="text-xs font-medium text-nyaya-200">Field Hospital Wing B</p>
+                      <span className="text-[10px] text-verdict-yellow">60%</span>
+                    </div>
+                    <div className="w-full bg-surface-1 h-1.5 rounded-full overflow-hidden">
+                      <div className="h-full bg-verdict-yellow" style={{ width: '60%' }} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex justify-between items-end mb-1">
+                      <p className="text-xs font-medium text-nyaya-200">HQ Perimeter Wall</p>
+                      <span className="text-[10px] text-verdict-red">85%</span>
+                    </div>
+                    <div className="w-full bg-surface-1 h-1.5 rounded-full overflow-hidden">
+                      <div className="h-full bg-verdict-red" style={{ width: '85%' }} />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
