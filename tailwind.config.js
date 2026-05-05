@@ -54,6 +54,38 @@ module.exports = {
         red: {
           600: '#dc2626',
         },
+        theme: {
+          bg: {
+            primary: '#F5F0EB',
+            section: '#FDE8E8',
+            card: '#FFFFFF',
+            active: '#FEF0EE',
+            footer: '#F7F2EE',
+          },
+          brand: {
+            DEFAULT: '#C0321F',
+            hover: '#A52A18',
+          },
+          text: {
+            heading: '#1A1A1A',
+            body: '#4A4A4A',
+            muted: '#6B6B6B',
+            placeholder: '#A3A3A3',
+          },
+          border: {
+            DEFAULT: '#E8E0D8',
+            active: '#D94040',
+          },
+          status: {
+            green: { bg: '#E8F5E9', text: '#2E7D32' },
+            yellow: { bg: '#FFF8E1', text: '#F57F17' },
+            red: { bg: '#FDE8E8', text: '#D94040' },
+          },
+          alert: {
+            bg: '#FFF3CD',
+            border: '#FFEEBA',
+          }
+        },
       },
       fontFamily: {
         sans: ['DM Sans', 'sans-serif'],

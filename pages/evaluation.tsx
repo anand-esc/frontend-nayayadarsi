@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldAlert, BarChart3, Fingerprint, Activity, Layers, CheckCircle2, AlertTriangle, XCircle, Search } from 'lucide-react';
@@ -21,6 +21,13 @@ export default function EvaluationDashboard() {
   const [selectedBidder, setSelectedBidder] = useState<BidderEvaluation | null>(null);
   const [showCollusion, setShowCollusion] = useState(false);
   const [viewMode, setViewMode] = useState<'list' | 'compare'>('list');
+
+  // Auto-select first bidder on load
+  useEffect(() => {
+    if (evalData?.bidders && evalData.bidders.length > 0 && !selectedBidder) {
+      setSelectedBidder(evalData.bidders[0]);
+    }
+  }, [evalData, selectedBidder]);
 
   const handleCollusionScan = useCallback(async () => {
     const bids = evalData?.bidders?.map((b) => ({
@@ -54,87 +61,113 @@ export default function EvaluationDashboard() {
         <div className="flex h-screen overflow-hidden">
 
           {/* LEFT SIDEBAR (280px fixed) */}
-          <div className="w-[320px] flex-shrink-0 border-r border-[#E8E8E8] bg-surface-1 flex flex-col z-10">
+          <div className="w-[320px] flex-shrink-0 border-r border-theme-border bg-theme-bg-footer flex flex-col z-10">
             {/* Tender Info */}
-            <div className="p-5 border-b border-[#E8E8E8] bg-surface-0/50">
-              <span className="text-[10px] font-mono text-nyaya-500 uppercase tracking-widest">{evalData?.tender_id}</span>
-              <h3 className="text-sm font-semibold text-nyaya-100 mt-1 leading-snug">{evalData?.tender_title}</h3>
-              <p className="text-xs text-nyaya-400 mt-2 flex items-center gap-1.5">
-                <Activity className="w-3.5 h-3.5 text-verdict-green" /> Live Evaluation
+            <div className="p-5 border-b border-theme-border bg-theme-bg-card/50">
+              <span className="text-[10px] font-mono text-theme-text-muted uppercase tracking-widest">{evalData?.tender_id}</span>
+              <h3 className="text-sm font-semibold text-theme-text-heading mt-1 leading-snug">{evalData?.tender_title}</h3>
+              <p className="text-xs text-theme-text-muted mt-2 flex items-center gap-1.5">
+                <Activity className="w-3.5 h-3.5 text-theme-status-green-text" /> Live Evaluation
               </p>
             </div>
 
             {/* Bidder List */}
-            <div className="flex-1 overflow-y-auto p-3 space-y-2">
-              <h4 className="text-[10px] font-bold text-nyaya-500 uppercase tracking-widest px-2 mb-3 mt-2">Submitted Bids ({evalData?.bidders?.length || 0})</h4>
+            <div className="flex-1 relative max-h-[500px] overflow-hidden flex flex-col">
+              <div className="px-5 pt-4 pb-2 bg-theme-bg-footer z-10 shrink-0">
+                <h4 className="text-[10px] font-bold text-theme-text-muted uppercase tracking-widest mb-0.5">Submitted Bids</h4>
+                <p className="text-[10px] text-theme-text-muted mb-3">Showing {evalData?.bidders?.length || 0} bids</p>
+                
+                {/* Color Legend */}
+                <div className="flex items-center gap-3 text-[9px] font-semibold tracking-wider uppercase text-theme-text-muted border-t border-theme-border pt-2.5 pb-1">
+                  <span className="flex items-center gap-1.5"><div className="w-1.5 h-1.5 rounded-full bg-theme-status-green-text"></div> Compliant</span>
+                  <span className="flex items-center gap-1.5"><div className="w-1.5 h-1.5 rounded-full bg-theme-status-yellow-text"></div> Review</span>
+                  <span className="flex items-center gap-1.5"><div className="w-1.5 h-1.5 rounded-full bg-theme-status-red-text"></div> Flagged</span>
+                </div>
+              </div>
 
-              {evalData?.bidders?.map((bidder) => {
-                const isSelected = selectedBidder?.bidder_id === bidder.bidder_id;
-                return (
-                  <motion.button
-                    key={bidder.bidder_id}
-                    onClick={() => { setViewMode('list'); setSelectedBidder(bidder); }}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`w-full text-left p-3 rounded-lg border transition-all ${isSelected
-                        ? 'bg-nyaya-600/10 border-nyaya-500/50 shadow-[0_0_15px_rgba(59,130,246,0.1)]'
-                        : 'bg-surface-0 border-[#E8E8E8] hover:border-[#E8E8E8]'
-                      }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${bidder.overall_verdict === 'GREEN' ? 'bg-verdict-green/20 text-verdict-green' :
-                          bidder.overall_verdict === 'RED' ? 'bg-verdict-red/20 text-verdict-red' :
-                            'bg-verdict-yellow/20 text-verdict-yellow'
-                        }`}>
-                        {bidder.company_name.substring(0, 2).toUpperCase()}
+              <div className="flex-1 overflow-y-auto p-3 space-y-2 relative pb-8">
+                {evalData?.bidders?.map((bidder) => {
+                  const isSelected = selectedBidder?.bidder_id === bidder.bidder_id;
+                  const redCount = bidder.verdicts?.filter(v => v.verdict === 'RED').length || 0;
+                  const yellowCount = bidder.verdicts?.filter(v => v.verdict === 'YELLOW').length || 0;
+                  let riskLine = 'All criteria met';
+                  if (redCount > 0) riskLine = `${redCount} criteria failed`;
+                  else if (yellowCount > 0) riskLine = `${yellowCount} flags require review`;
+
+                  return (
+                    <motion.button
+                      key={bidder.bidder_id}
+                      onClick={() => { setViewMode('list'); setSelectedBidder(bidder); }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`w-full text-left p-3 rounded-lg transition-all ${isSelected
+                          ? 'bg-theme-bg-active border-l-[3px] border-theme-brand shadow-sm'
+                          : 'bg-theme-bg-card border-l-[3px] border-transparent hover:bg-theme-bg-active border border-theme-border'
+                        }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-xs font-bold ${bidder.overall_verdict === 'GREEN' ? 'bg-theme-status-green-bg text-theme-status-green-text' :
+                            bidder.overall_verdict === 'RED' ? 'bg-theme-status-red-bg text-theme-status-red-text' :
+                              'bg-theme-status-yellow-bg text-theme-status-yellow-text'
+                          }`}>
+                          {bidder.company_name.substring(0, 2).toUpperCase()}
+                        </div>
+                        <div className="flex-1 min-w-0 pr-2">
+                          <p className="text-sm font-medium text-theme-text-heading whitespace-normal leading-tight mb-0.5">{bidder.company_name}</p>
+                          <p className="text-[10px] text-theme-text-muted font-mono mt-0.5">₹{(bidder.bid_amount! / 100000).toFixed(1)}L</p>
+                          <p className="text-[10px] text-theme-text-muted mt-1.5 font-medium">{riskLine}</p>
+                        </div>
+                        <VerdictBadge verdict={bidder.overall_verdict} />
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-nyaya-100 truncate">{bidder.company_name}</p>
-                        <p className="text-[10px] text-nyaya-400 font-mono mt-0.5">₹{(bidder.bid_amount! / 100000).toFixed(1)}L</p>
-                      </div>
-                      <VerdictBadge verdict={bidder.overall_verdict} />
-                    </div>
-                  </motion.button>
-                )
-              })}
+                    </motion.button>
+                  )
+                })}
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-theme-bg-footer to-transparent pointer-events-none" />
             </div>
 
             {/* Collusion Trigger */}
-            <div className="p-4 border-t border-[#E8E8E8] bg-surface-1/80 backdrop-blur-md">
+            <div className="p-4 border-t border-theme-border bg-theme-bg-footer/80 backdrop-blur-md z-20">
               <button
                 onClick={handleCollusionScan}
                 disabled={scanning}
-                className={`w-full py-3 px-4 rounded-lg flex items-center justify-center gap-2 text-sm font-medium transition-all ${scanning ? 'bg-surface-3 text-nyaya-400' : 'bg-accent-600/20 text-accent-500 border border-accent-500/30 hover:bg-accent-500-white shadow-[0_0_20px_rgba(245,158,11,0.1)] hover:shadow-[0_0_20px_rgba(245,158,11,0.3)]'
-                  }`}
+                className={`w-full py-3 px-4 rounded-lg flex flex-col items-center justify-center gap-1 transition-all shadow-sm ${
+                  scanning 
+                    ? 'bg-theme-bg-active text-theme-text-muted' 
+                    : 'bg-theme-brand hover:bg-theme-brand-hover text-white'
+                }`}
               >
-                <Layers className={`w-4 h-4 ${scanning ? 'animate-spin' : ''}`} />
-                {scanning ? 'Running Forensic Scan...' : 'Run Collusion Scan'}
+                <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider">
+                  <Layers className={`w-4 h-4 ${scanning ? 'animate-spin' : ''}`} />
+                  {scanning ? 'Running Scan...' : 'Run Collusion Scan'}
+                </div>
+                <span className="text-[9px] text-white/80 font-medium">Last run: Never</span>
               </button>
 
               {collusionData && !scanning && (
-                <div className="mt-3 flex items-center justify-center gap-2 text-[10px] uppercase tracking-widest font-bold text-verdict-red bg-verdict-red/10 py-1.5 rounded border border-verdict-red/20">
-                  <ShieldAlert className="w-3 h-3" /> {collusionData.total_triggered} Flags Detected
+                <div className="mt-3 flex items-center justify-center gap-2 text-[10px] uppercase tracking-widest font-bold text-theme-status-red-text bg-theme-status-red-bg py-1.5 rounded border border-theme-status-red-text/30">
+                  <ShieldAlert className="w-3.5 h-3.5" /> {collusionData.total_triggered} Anomalies Found
                 </div>
               )}
             </div>
           </div>
 
           {/* MAIN PANEL */}
-          <div className="flex-1 bg-surface-0 overflow-y-auto relative z-0">
+          <div className="flex-1 bg-theme-bg-primary overflow-y-auto relative z-0">
             <div className="max-w-5xl mx-auto p-8">
 
               {/* Header Actions */}
-              <div className="flex justify-end mb-6">
-                <div className="bg-surface-1 p-1 rounded-lg border border-[#E8E8E8] flex gap-1">
+              <div className="flex justify-start mb-6">
+                <div className="bg-theme-bg-footer p-1 rounded-lg border border-theme-border flex gap-1 shadow-sm">
                   <button
                     onClick={() => setViewMode('list')}
-                    className={`px-4 py-1.5 text-xs font-medium rounded-md transition-all ${viewMode === 'list' ? 'bg-surface-3 text-nyaya-100 shadow' : 'text-nyaya-400 hover:text-nyaya-100'}`}
+                    className={`px-4 py-1.5 text-xs font-medium rounded-md transition-all ${viewMode === 'list' ? 'bg-theme-bg-card text-theme-text-heading shadow-sm border border-theme-border' : 'text-theme-text-muted hover:text-theme-text-heading border border-transparent'}`}
                   >
                     Individual Evaluation
                   </button>
                   <button
                     onClick={() => setViewMode('compare')}
-                    className={`px-4 py-1.5 text-xs font-medium rounded-md transition-all ${viewMode === 'compare' ? 'bg-surface-3 text-nyaya-100 shadow' : 'text-nyaya-400 hover:text-nyaya-100'}`}
+                    className={`px-4 py-1.5 text-xs font-medium rounded-md transition-all ${viewMode === 'compare' ? 'bg-theme-bg-card text-theme-text-heading shadow-sm border border-theme-border' : 'text-theme-text-muted hover:text-theme-text-heading border border-transparent'}`}
                   >
                     Comparative Matrix
                   </button>
@@ -158,16 +191,16 @@ export default function EvaluationDashboard() {
                   ) : (
                     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} key={selectedBidder.bidder_id}>
                       {/* Bidder Header */}
-                      <div className="flex items-start justify-between mb-8 pb-6 border-b border-[#E8E8E8]">
+                      <div className="flex items-start justify-between mb-8 pb-6 border-b border-theme-border">
                         <div>
-                          <h2 className="text-3xl font-display font-semibold text-nyaya-100 mb-2">{selectedBidder.company_name}</h2>
-                          <div className="flex items-center gap-4 text-sm font-mono text-nyaya-400">
-                            <span className="bg-surface-2 px-2 py-1 rounded border border-[#E8E8E8]">ID: {selectedBidder.bidder_id}</span>
-                            <span className="bg-surface-2 px-2 py-1 rounded border border-[#E8E8E8]">Bid: ₹{(selectedBidder.bid_amount! / 100000).toFixed(1)} Lakhs</span>
+                          <h2 className="text-3xl font-display font-semibold text-theme-text-heading mb-2">{selectedBidder.company_name}</h2>
+                          <div className="flex items-center gap-4 text-sm font-mono text-theme-text-muted">
+                            <span className="bg-theme-bg-footer px-2 py-1 rounded border border-theme-border">ID: {selectedBidder.bidder_id}</span>
+                            <span className="bg-theme-bg-footer px-2 py-1 rounded border border-theme-border">Bid: ₹{(selectedBidder.bid_amount! / 100000).toFixed(1)} Lakhs</span>
                           </div>
                         </div>
                         <div className="text-right">
-                          <p className="text-[10px] uppercase tracking-widest text-nyaya-500 mb-2">Final AI Verdict</p>
+                          <p className="text-[10px] uppercase tracking-widest text-theme-text-muted mb-2">Final AI Verdict</p>
                           <VerdictBadge verdict={selectedBidder.overall_verdict} />
                         </div>
                       </div>
@@ -194,23 +227,22 @@ export default function EvaluationDashboard() {
               )}
 
               {/* Yellow Queue */}
-              {yellowQueue?.items?.length && yellowQueue.items.length > 0 && viewMode === 'list' && (
-                <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-16">
-                  <div className="flex items-center gap-3 mb-6 bg-accent-500/10 border border-accent-500/20 px-4 py-3 rounded-lg text-accent-500">
-                    <AlertTriangle className="w-5 h-5" />
-                    <div>
-                      <h4 className="text-sm font-bold tracking-wide uppercase">Manual Review Required</h4>
-                      <p className="text-xs opacity-80 mt-0.5">{yellowQueue.total_yellow} items flagged for human authorization.</p>
+              {yellowQueue?.items?.length && yellowQueue.items.length > 0 && viewMode === 'list' && selectedBidder && (() => {
+                const bidderItems = yellowQueue.items.filter(item => item.bidder_id === selectedBidder.bidder_id);
+                if (bidderItems.length === 0) return null;
+                return (
+                  <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-16">
+                    <div className="flex items-center gap-3 mb-6 bg-theme-alert-banner-bg border border-theme-alert-banner-border px-4 py-3 rounded-lg text-theme-brand">
+                      <AlertTriangle className="w-5 h-5 shrink-0" />
+                      <div>
+                        <h4 className="text-sm font-bold tracking-wide uppercase text-theme-brand">Manual Review Required</h4>
+                        <p className="text-xs opacity-80 mt-0.5 text-theme-brand">{bidderItems.length} items flagged for human authorization for this bidder.</p>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="grid gap-6">
-                    <AnimatePresence>
-                      {yellowQueue.items.map((item) => {
-                        // Only show if it belongs to selected bidder, or show all if no bidder selected
-                        if (selectedBidder && item.bidder_id !== selectedBidder.bidder_id) return null;
-
-                        return (
+                    <div className="grid gap-6">
+                      <AnimatePresence>
+                        {bidderItems.map((item) => (
                           <motion.div
                             key={`${item.bidder_id}-${item.criterion_id}`}
                             initial={{ opacity: 0, scale: 0.95 }}
@@ -220,12 +252,12 @@ export default function EvaluationDashboard() {
                           >
                             <YellowItem item={item} officerId={DEMO_OFFICER_ID} />
                           </motion.div>
-                        );
-                      })}
-                    </AnimatePresence>
-                  </div>
-                </motion.section>
-              )}
+                        ))}
+                      </AnimatePresence>
+                    </div>
+                  </motion.section>
+                );
+              })()}
 
             </div>
           </div>

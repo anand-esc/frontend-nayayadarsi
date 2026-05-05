@@ -1,17 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@import './tokens.css';
+
 @layer base {
   body {
-    @apply bg-surface-0 text-nyaya-100 font-sans antialiased;
+    @apply bg-theme-bg-primary text-theme-text-body font-sans antialiased;
     min-height: 100vh;
   }
 
   ::selection {
-    @apply bg-nyaya-600/20 text-nyaya-100;
+    @apply bg-theme-brand/20 text-theme-text-heading;
   }
 
   /* Scrollbar styling */
@@ -33,88 +34,88 @@
 @layer components {
   /* Card system */
   .glass-card {
-    @apply bg-surface-2 border border-[#E8E8E8] rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.06)];
+    @apply bg-theme-bg-card border border-theme-border rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.06)];
   }
 
   .glass-card-hover {
     @apply glass-card transition-all duration-200;
   }
   .glass-card-hover:hover {
-    @apply border-[#D0D0D0] shadow-[0_16px_48px_rgba(0,0,0,0.10),0_2px_8px_rgba(0,0,0,0.04)];
+    @apply border-theme-border shadow-[0_16px_48px_rgba(0,0,0,0.10),0_2px_8px_rgba(0,0,0,0.04)];
     transform: translateY(-1px);
   }
 
   /* Buttons */
   .btn-primary {
-    @apply px-5 py-2.5 bg-nyaya-600 text-white text-sm font-semibold tracking-[0.02em] rounded-lg
-           transition-all duration-200 hover:bg-nyaya-700
+    @apply px-5 py-2.5 bg-theme-brand text-white text-sm font-semibold tracking-[0.02em] rounded-lg
+           transition-all duration-200 hover:bg-theme-brand-hover
            active:scale-[0.98];
   }
 
   .btn-saffron {
-    @apply px-5 py-2.5 bg-accent-500 text-white text-sm font-semibold tracking-[0.02em] rounded-lg
-           transition-all duration-200 hover:bg-accent-600
+    @apply px-5 py-2.5 bg-theme-brand text-white text-sm font-semibold tracking-[0.02em] rounded-lg
+           transition-all duration-200 hover:bg-theme-brand-hover
            active:scale-[0.98];
   }
 
   .btn-secondary {
-    @apply px-5 py-2.5 bg-surface-1 text-nyaya-100 border border-[#E8E8E8] text-sm font-semibold tracking-[0.02em] rounded-lg
-           transition-all duration-200 hover:bg-[#EDE5D5]
+    @apply px-5 py-2.5 bg-theme-bg-card text-theme-text-heading border border-theme-brand text-theme-brand text-sm font-semibold tracking-[0.02em] rounded-lg
+           transition-all duration-200 hover:bg-theme-bg-active
            active:scale-[0.98];
   }
 
   .btn-ghost {
-    @apply px-3 py-1.5 text-nyaya-400 hover:text-nyaya-100 hover:bg-surface-1 rounded-lg
+    @apply px-3 py-1.5 text-theme-text-muted hover:text-theme-text-heading hover:bg-theme-bg-active rounded-lg
            transition-all duration-150 text-sm font-medium;
   }
 
   /* Inputs */
   .input-field {
-    @apply w-full px-4 py-2.5 bg-surface-0 border border-[#E8E8E8] rounded-lg text-nyaya-100 text-sm
-           placeholder:text-nyaya-500 focus:outline-none focus:border-nyaya-600/40
-           focus:ring-2 focus:ring-nyaya-600/10 transition-all duration-150;
+    @apply w-full px-4 py-2.5 bg-theme-bg-card border border-theme-border rounded-lg text-theme-text-heading text-sm
+           placeholder:text-theme-text-placeholder focus:outline-none focus:border-theme-brand/40
+           focus:ring-2 focus:ring-theme-brand/10 transition-all duration-150;
   }
 
   /* Badges */
   .badge-green {
     @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold
-           bg-[#E8F5E9] text-[#2E7D32] border border-[#C8E6C9];
+           bg-theme-status-green-bg text-theme-status-green-text border border-[#C8E6C9];
   }
   .badge-yellow {
     @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold
-           bg-[#FFF8E1] text-[#F57F17] border border-[#FFECB3];
+           bg-theme-status-yellow-bg text-theme-status-yellow-text border border-[#FFECB3];
   }
   .badge-red {
     @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-[10px] uppercase font-bold tracking-[0.08em]
-           bg-[#F5E6E6] text-[#D94040] border border-[#D94040]/20;
+           bg-theme-status-red-bg text-theme-status-red-text border border-theme-status-red-text/20;
   }
 
   /* Verdict dots */
   .verdict-dot {
     @apply w-2.5 h-2.5 rounded-full;
   }
-  .verdict-dot-green { @apply bg-verdict-green; }
-  .verdict-dot-yellow { @apply bg-verdict-yellow; }
-  .verdict-dot-red { @apply bg-verdict-red; }
+  .verdict-dot-green { @apply bg-theme-status-green-text; }
+  .verdict-dot-yellow { @apply bg-theme-status-yellow-text; }
+  .verdict-dot-red { @apply bg-theme-status-red-text; }
 
   /* Typography */
   .section-title {
-    @apply text-base font-display font-semibold text-nyaya-100 tracking-tight;
+    @apply text-base font-display font-semibold text-theme-text-heading tracking-tight;
   }
   .section-subtitle {
-    @apply text-sm text-nyaya-400;
+    @apply text-sm text-theme-text-muted;
   }
 
   .stat-value {
-    @apply text-2xl font-display font-bold text-nyaya-100;
+    @apply text-2xl font-display font-bold text-theme-text-heading;
   }
 
   .gradient-text {
-    @apply text-nyaya-100;
+    @apply text-theme-text-heading;
   }
 
   .divider {
-    @apply border-t border-[#E8E8E8] my-4;
+    @apply border-t border-theme-border my-4;
   }
 
   /* Accent line for active elements */
