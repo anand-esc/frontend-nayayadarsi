@@ -1,120 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+html { scroll-behavior: smooth; }
+* { box-sizing: border-box; }
 
-@layer base {
-  body {
-    @apply bg-surface-0 text-white font-sans antialiased;
-    min-height: 100vh;
-  }
-
-  ::selection {
-    @apply bg-nyaya-500/30 text-white;
-  }
-
-  /* Scrollbar styling */
-  ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-  }
-  ::-webkit-scrollbar-track {
-    @apply bg-transparent;
-  }
-  ::-webkit-scrollbar-thumb {
-    @apply bg-nyaya-700/40 rounded-full;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-nyaya-600/50;
-  }
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #F5F0E8;
+  color: #1A1A1A;
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
 }
 
-@layer components {
-  /* Card system */
-  .glass-card {
-    @apply bg-surface-2 border border-white/[0.06] rounded-xl;
-  }
+::selection {
+  background-color: rgba(217, 64, 64, 0.3);
+  color: #1A1A1A;
+}
 
-  .glass-card-hover {
-    @apply glass-card transition-all duration-200;
-  }
-  .glass-card-hover:hover {
-    @apply bg-surface-3 border-white/[0.1];
-    transform: translateY(-1px);
-  }
-
-  /* Buttons */
-  .btn-primary {
-    @apply px-5 py-2.5 bg-nyaya-600 text-white text-sm font-medium rounded-lg
-           transition-all duration-200 hover:bg-nyaya-500
-           active:scale-[0.98];
-  }
-
-  .btn-saffron {
-    @apply px-5 py-2.5 bg-accent-500 text-white text-sm font-medium rounded-lg
-           transition-all duration-200 hover:bg-accent-600
-           active:scale-[0.98];
-  }
-
-  .btn-ghost {
-    @apply px-3 py-1.5 text-nyaya-300 hover:text-white hover:bg-white/[0.06] rounded-lg
-           transition-all duration-150 text-sm;
-  }
-
-  /* Inputs */
-  .input-field {
-    @apply w-full px-4 py-2.5 bg-surface-1 border border-white/[0.08] rounded-lg text-white text-sm
-           placeholder:text-nyaya-400/40 focus:outline-none focus:border-nyaya-500/50
-           focus:ring-1 focus:ring-nyaya-500/20 transition-all duration-150;
-  }
-
-  /* Badges */
-  .badge-green {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold
-           bg-verdict-green/15 text-verdict-green border border-verdict-green/20;
-  }
-  .badge-yellow {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold
-           bg-verdict-yellow/15 text-verdict-yellow border border-verdict-yellow/20;
-  }
-  .badge-red {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold
-           bg-verdict-red/15 text-verdict-red border border-verdict-red/20;
-  }
-
-  /* Verdict dots */
-  .verdict-dot {
-    @apply w-2.5 h-2.5 rounded-full;
-  }
-  .verdict-dot-green { @apply bg-verdict-green; }
-  .verdict-dot-yellow { @apply bg-verdict-yellow; }
-  .verdict-dot-red { @apply bg-verdict-red; }
-
-  /* Typography */
-  .section-title {
-    @apply text-base font-display font-semibold text-white tracking-tight;
-  }
-  .section-subtitle {
-    @apply text-sm text-nyaya-400;
-  }
-
-  .stat-value {
-    @apply text-2xl font-display font-bold text-white;
-  }
-
-  .gradient-text {
-    @apply text-white;
-  }
-
-  .divider {
-    @apply border-t border-white/[0.06] my-4;
-  }
-
-  /* Accent line for active elements */
-  .accent-line {
-    @apply w-1 h-full bg-nyaya-500 rounded-full;
-  }
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(26, 26, 26, 0.4);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(26, 26, 26, 0.5);
 }
 
 /* Smooth page transitions */
