@@ -37,7 +37,7 @@ const BootSequence = ({ onComplete }: { onComplete: () => void }) => {
     <motion.div
       exit={{ opacity: 0, scale: 1.05 }}
       transition={{ duration: 0.5 }}
-      className="fixed inset-0 z-[200] bg-[#020408] flex items-center justify-center"
+      className="fixed inset-0 z-[200] bg-surface-0 flex items-center justify-center"
     >
       <div className="w-full max-w-2xl px-8">
         <div className="font-mono text-[13px] leading-7 text-green-400/90">
@@ -47,7 +47,7 @@ const BootSequence = ({ onComplete }: { onComplete: () => void }) => {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.15 }}
-              className={i === lines.length - 1 ? 'text-white font-bold' : ''}
+              className={i === lines.length - 1 ? 'text-nyaya-100 font-bold' : ''}
             >
               {line}
               {i === lines.length - 1 && (
@@ -169,7 +169,7 @@ const LiveFeed = () => {
           transition={{ duration: 0.3 }}
           className="flex items-start gap-2"
         >
-          <span className="text-white/20 shrink-0">{item.time}</span>
+          <span className="text-nyaya-400 shrink-0">{item.time}</span>
           <span className={`w-1.5 h-1.5 rounded-full mt-1 shrink-0 ${dots[item.type]}`} />
           <span className={colors[item.type]}>{item.msg}</span>
         </motion.div>
@@ -189,8 +189,8 @@ const StatusBar = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-0 w-full z-50 bg-[#060a14]/90 backdrop-blur border-t border-white/[0.04] px-6 py-2 flex items-center justify-between font-mono text-[10px]">
-      <div className="flex items-center gap-6 text-white/30">
+    <div className="fixed bottom-0 w-full z-50 bg-surface-0/90 backdrop-blur border-t border-[#E8E8E8] px-6 py-2 flex items-center justify-between font-mono text-[10px]">
+      <div className="flex items-center gap-6 text-nyaya-400">
         <span className="flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           SYSTEM OPERATIONAL
@@ -198,10 +198,10 @@ const StatusBar = () => {
         <span>CLEARANCE: L4</span>
         <span>ENCRYPTION: AES-256</span>
       </div>
-      <div className="flex items-center gap-6 text-white/30">
+      <div className="flex items-center gap-6 text-nyaya-400">
         <span>TENDERS MONITORED: 52,147</span>
         <span>THREATS NEUTRALIZED: 847</span>
-        <span className="text-white/50">{time} IST</span>
+        <span className="text-nyaya-400">{time} IST</span>
       </div>
     </div>
   );
@@ -240,21 +240,21 @@ export default function LandingPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="min-h-screen bg-[#060a14] text-white"
+          className="min-h-screen bg-surface-0 text-nyaya-100"
         >
           {/* Scan line overlay */}
           <div className="fixed inset-0 pointer-events-none z-[60] opacity-[0.015]"
             style={{ background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.05) 2px, rgba(255,255,255,0.05) 4px)' }} />
 
           {/* ━━━ TOP BAR ━━━ */}
-          <div className="fixed top-0 w-full z-50 bg-[#060a14]/80 backdrop-blur-xl border-b border-white/[0.04]">
+          <div className="fixed top-0 w-full z-50 bg-surface-0/80 backdrop-blur-xl border-b border-[#E8E8E8]">
             <div className="max-w-[1400px] mx-auto px-8 h-14 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
-                  <Scale className="w-4 h-4 text-white" />
+                  <Scale className="w-4 h-4 text-nyaya-100" />
                 </div>
-                <span className="font-mono text-sm font-bold tracking-wider text-white/90">NYAYADARSI</span>
-                <span className="font-mono text-[9px] text-white/20 border border-white/10 px-1.5 py-0.5 rounded">v2.0</span>
+                <span className="font-mono text-sm font-bold tracking-wider text-nyaya-400">NYAYADARSI</span>
+                <span className="font-mono text-[9px] text-nyaya-400 border border-[#E8E8E8] px-1.5 py-0.5 rounded">v2.0</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -274,7 +274,7 @@ export default function LandingPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
-                  className="relative bg-[#0a0f1a] border border-white/[0.04] rounded-2xl p-10 overflow-hidden"
+                  className="relative bg-surface-2 border border-[#E8E8E8] rounded-2xl p-10 overflow-hidden"
                 >
                   {/* Grid bg */}
                   <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
@@ -293,7 +293,7 @@ export default function LandingPage() {
                     </motion.div>
 
                     <h1 className="text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-5">
-                      <span className="text-white/95">AI that sees</span>
+                      <span className="text-nyaya-100">AI that sees</span>
                       <br />
                       <span className="relative">
                         <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 bg-clip-text text-transparent">
@@ -308,7 +308,7 @@ export default function LandingPage() {
                       </span>
                     </h1>
 
-                    <p className="text-base text-white/30 max-w-lg leading-relaxed mb-10 font-light">
+                    <p className="text-base text-nyaya-400 max-w-lg leading-relaxed mb-10 font-light">
                       India's first end-to-end AI surveillance layer for government procurement.
                       Every tender. Every bid. Every rupee. Watched.
                     </p>
@@ -324,15 +324,15 @@ export default function LandingPage() {
                         return (
                           <motion.div key={p.href} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 + i * 0.1 }}>
                             <Link href={p.href}
-                              className="group block bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.12] rounded-xl p-4 transition-all hover:-translate-y-0.5 hover:bg-white/[0.04]"
+                              className="group block bg-surface-1 border border-[#E8E8E8] hover:border-[#E8E8E8] rounded-xl p-4 transition-all hover:-translate-y-0.5 hover:bg-surface-1"
                             >
                               <div className="flex items-center gap-3 mb-2">
                                 <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: `${p.accent}15`, border: `1px solid ${p.accent}30` }}>
                                   <Icon className="w-4 h-4" style={{ color: p.accent }} />
                                 </div>
-                                <ArrowRight className="w-3 h-3 text-white/20 group-hover:text-white/60 ml-auto transition-all group-hover:translate-x-0.5" />
+                                <ArrowRight className="w-3 h-3 text-nyaya-400 group-hover:text-nyaya-400 ml-auto transition-all group-hover:translate-x-0.5" />
                               </div>
-                              <span className="text-xs font-semibold text-white/70 group-hover:text-white/90 transition-colors">{p.label}</span>
+                              <span className="text-xs font-semibold text-nyaya-400 group-hover:text-nyaya-400 transition-colors">{p.label}</span>
                             </Link>
                           </motion.div>
                         );
@@ -346,10 +346,10 @@ export default function LandingPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.15 }}
-                  className="bg-[#0a0f1a] border border-white/[0.04] rounded-2xl p-6 flex flex-col"
+                  className="bg-surface-2 border border-[#E8E8E8] rounded-2xl p-6 flex flex-col"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <div className="font-mono text-[10px] text-white/30 tracking-[0.2em] uppercase">Threat Network</div>
+                    <div className="font-mono text-[10px] text-nyaya-400 tracking-[0.2em] uppercase">Threat Network</div>
                     <div className="flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
                       <span className="font-mono text-[9px] text-red-400/70">3 FLAGGED</span>
@@ -372,7 +372,7 @@ export default function LandingPage() {
                 >
                   {[
                     { value: '₹37,370 Cr', label: 'Pending Bills', color: 'text-red-400', border: 'border-red-400/10' },
-                    { value: '52,000+', label: 'Tenders / Year', color: 'text-white/80', border: 'border-white/[0.04]' },
+                    { value: '52,000+', label: 'Tenders / Year', color: 'text-nyaya-400', border: 'border-[#E8E8E8]' },
                     { value: '94.7%', label: 'Detection Rate', color: 'text-emerald-400', border: 'border-emerald-400/10' },
                     { value: '847', label: 'Threats Blocked', color: 'text-amber-400', border: 'border-amber-400/10' },
                   ].map((stat, i) => (
@@ -381,10 +381,10 @@ export default function LandingPage() {
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.4 + i * 0.08 }}
-                      className={`bg-[#0a0f1a] ${stat.border} border rounded-xl p-5 text-center flex flex-col items-center justify-center`}
+                      className={`bg-surface-2 ${stat.border} border rounded-xl p-5 text-center flex flex-col items-center justify-center`}
                     >
                       <div className={`text-2xl font-bold tracking-tight mb-1 ${stat.color}`}>{stat.value}</div>
-                      <div className="font-mono text-[9px] text-white/25 tracking-widest uppercase">{stat.label}</div>
+                      <div className="font-mono text-[9px] text-nyaya-400 tracking-widest uppercase">{stat.label}</div>
                     </motion.div>
                   ))}
                 </motion.div>
@@ -394,10 +394,10 @@ export default function LandingPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
-                  className="bg-[#0a0f1a] border border-white/[0.04] rounded-2xl p-6"
+                  className="bg-surface-2 border border-[#E8E8E8] rounded-2xl p-6"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <div className="font-mono text-[10px] text-white/30 tracking-[0.2em] uppercase">Live Intelligence Feed</div>
+                    <div className="font-mono text-[10px] text-nyaya-400 tracking-[0.2em] uppercase">Live Intelligence Feed</div>
                     <div className="flex items-center gap-1.5">
                       <motion.span
                         animate={{ opacity: [1, 0.3, 1] }}

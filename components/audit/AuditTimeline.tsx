@@ -23,7 +23,7 @@ function AuditTimelineInner({ data }: AuditTimelineProps) {
   }
 
   return (
-    <div className="relative border-l-2 border-white/[0.06] ml-4 space-y-8 py-4">
+    <div className="relative border-l-2 border-[#E8E8E8] ml-4 space-y-8 py-4">
       {data.trail.map((entry, index) => (
         <div key={entry.id} className="relative pl-8">
           <div className="absolute -left-[11px] bg-surface-0 border-2 border-surface-1 rounded-full p-1">
@@ -32,7 +32,7 @@ function AuditTimelineInner({ data }: AuditTimelineProps) {
           
           <div className="glass-card p-5 border-l-2 border-l-nyaya-600/50 hover:border-l-nyaya-500 transition-colors">
             <div className="flex items-center justify-between mb-3">
-              <h4 className="text-sm font-semibold text-white tracking-wide">
+              <h4 className="text-sm font-semibold text-nyaya-100 tracking-wide">
                 {entry.action.replace(/_/g, ' ')}
               </h4>
               <time className="text-xs text-nyaya-500 font-mono">
@@ -43,14 +43,14 @@ function AuditTimelineInner({ data }: AuditTimelineProps) {
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
                 <span className="text-[10px] uppercase tracking-wider text-nyaya-500 block mb-1">Entity Reference</span>
-                <span className="text-xs font-mono bg-white/[0.04] px-2 py-1 rounded text-nyaya-300">
+                <span className="text-xs font-mono bg-surface-1 px-2 py-1 rounded text-nyaya-300">
                   {entry.entity_type} :: {entry.entity_id}
                 </span>
               </div>
               {entry.officer_id && (
                 <div>
                   <span className="text-[10px] uppercase tracking-wider text-nyaya-500 block mb-1">Authorizing Officer</span>
-                  <span className="text-xs text-nyaya-300 bg-white/[0.04] px-2 py-1 rounded">{entry.officer_id}</span>
+                  <span className="text-xs text-nyaya-300 bg-surface-1 px-2 py-1 rounded">{entry.officer_id}</span>
                 </div>
               )}
               {entry.verdict && (
@@ -67,7 +67,7 @@ function AuditTimelineInner({ data }: AuditTimelineProps) {
               )}
             </div>
 
-            <div className="bg-surface-0/50 rounded-lg p-3 border border-white/[0.02]">
+            <div className="bg-surface-0/50 rounded-lg p-3 border border-[#E8E8E8]">
               <div className="flex items-center gap-2 mb-2">
                 <Fingerprint className="w-3 h-3 text-nyaya-500" />
                 <span className="text-[10px] uppercase tracking-wider text-nyaya-400">Cryptographic Verification</span>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,12 +6,12 @@
 
 @layer base {
   body {
-    @apply bg-surface-0 text-white font-sans antialiased;
+    @apply bg-surface-0 text-nyaya-100 font-sans antialiased;
     min-height: 100vh;
   }
 
   ::selection {
-    @apply bg-nyaya-500/30 text-white;
+    @apply bg-nyaya-600/20 text-nyaya-100;
   }
 
   /* Scrollbar styling */
@@ -23,64 +23,70 @@
     @apply bg-transparent;
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-nyaya-700/40 rounded-full;
+    @apply bg-nyaya-300/40 rounded-full;
   }
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-nyaya-600/50;
+    @apply bg-nyaya-400/50;
   }
 }
 
 @layer components {
   /* Card system */
   .glass-card {
-    @apply bg-surface-2 border border-white/[0.06] rounded-xl;
+    @apply bg-surface-2 border border-[#E8E8E8] rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.06)];
   }
 
   .glass-card-hover {
     @apply glass-card transition-all duration-200;
   }
   .glass-card-hover:hover {
-    @apply bg-surface-3 border-white/[0.1];
+    @apply border-[#D0D0D0] shadow-[0_16px_48px_rgba(0,0,0,0.10),0_2px_8px_rgba(0,0,0,0.04)];
     transform: translateY(-1px);
   }
 
   /* Buttons */
   .btn-primary {
-    @apply px-5 py-2.5 bg-nyaya-600 text-white text-sm font-medium rounded-lg
-           transition-all duration-200 hover:bg-nyaya-500
+    @apply px-5 py-2.5 bg-nyaya-600 text-white text-sm font-semibold tracking-[0.02em] rounded-lg
+           transition-all duration-200 hover:bg-nyaya-700
            active:scale-[0.98];
   }
 
   .btn-saffron {
-    @apply px-5 py-2.5 bg-accent-500 text-white text-sm font-medium rounded-lg
+    @apply px-5 py-2.5 bg-accent-500 text-white text-sm font-semibold tracking-[0.02em] rounded-lg
            transition-all duration-200 hover:bg-accent-600
            active:scale-[0.98];
   }
 
+  .btn-secondary {
+    @apply px-5 py-2.5 bg-surface-1 text-nyaya-100 border border-[#E8E8E8] text-sm font-semibold tracking-[0.02em] rounded-lg
+           transition-all duration-200 hover:bg-[#EDE5D5]
+           active:scale-[0.98];
+  }
+
   .btn-ghost {
-    @apply px-3 py-1.5 text-nyaya-300 hover:text-white hover:bg-white/[0.06] rounded-lg
-           transition-all duration-150 text-sm;
+    @apply px-3 py-1.5 text-nyaya-400 hover:text-nyaya-100 hover:bg-surface-1 rounded-lg
+           transition-all duration-150 text-sm font-medium;
   }
 
   /* Inputs */
   .input-field {
-    @apply w-full px-4 py-2.5 bg-surface-1 border border-white/[0.08] rounded-lg text-white text-sm
-           placeholder:text-nyaya-400/40 focus:outline-none focus:border-nyaya-500/50
-           focus:ring-1 focus:ring-nyaya-500/20 transition-all duration-150;
+    @apply w-full px-4 py-2.5 bg-surface-0 border border-[#E8E8E8] rounded-lg text-nyaya-100 text-sm
+           placeholder:text-nyaya-500 focus:outline-none focus:border-nyaya-600/40
+           focus:ring-2 focus:ring-nyaya-600/10 transition-all duration-150;
   }
 
   /* Badges */
   .badge-green {
     @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold
-           bg-verdict-green/15 text-verdict-green border border-verdict-green/20;
+           bg-[#E8F5E9] text-[#2E7D32] border border-[#C8E6C9];
   }
   .badge-yellow {
     @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold
-           bg-verdict-yellow/15 text-verdict-yellow border border-verdict-yellow/20;
+           bg-[#FFF8E1] text-[#F57F17] border border-[#FFECB3];
   }
   .badge-red {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold
-           bg-verdict-red/15 text-verdict-red border border-verdict-red/20;
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-[10px] uppercase font-bold tracking-[0.08em]
+           bg-[#F5E6E6] text-[#D94040] border border-[#D94040]/20;
   }
 
   /* Verdict dots */
@@ -93,27 +99,27 @@
 
   /* Typography */
   .section-title {
-    @apply text-base font-display font-semibold text-white tracking-tight;
+    @apply text-base font-display font-semibold text-nyaya-100 tracking-tight;
   }
   .section-subtitle {
     @apply text-sm text-nyaya-400;
   }
 
   .stat-value {
-    @apply text-2xl font-display font-bold text-white;
+    @apply text-2xl font-display font-bold text-nyaya-100;
   }
 
   .gradient-text {
-    @apply text-white;
+    @apply text-nyaya-100;
   }
 
   .divider {
-    @apply border-t border-white/[0.06] my-4;
+    @apply border-t border-[#E8E8E8] my-4;
   }
 
   /* Accent line for active elements */
   .accent-line {
-    @apply w-1 h-full bg-nyaya-500 rounded-full;
+    @apply w-1 h-full bg-nyaya-600 rounded-full;
   }
 }
 

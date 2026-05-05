@@ -26,7 +26,7 @@ function VerdictRowInner({ verdict: v }: VerdictRowProps) {
       </div>
       {v.confidence != null && <ConfidenceBar value={v.confidence} />}
       {v.citation && (
-        <div className="px-3 py-2 rounded-lg bg-surface-3 border border-white/[0.04] text-xs text-nyaya-300 leading-relaxed flex items-start gap-2">
+        <div className="px-3 py-2 rounded-lg bg-surface-3 border border-[#E8E8E8] text-xs text-nyaya-300 leading-relaxed flex items-start gap-2">
           <Paperclip className="w-3 h-3 flex-shrink-0 mt-0.5 text-nyaya-500" />
           <span>{v.citation}</span>
         </div>
