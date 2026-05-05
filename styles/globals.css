@@ -1,38 +1,126 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
-html { scroll-behavior: smooth; }
-* { box-sizing: border-box; }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #F5F0E8;
-  color: #1A1A1A;
-  font-family: 'DM Sans', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  min-height: 100vh;
+@layer base {
+  body {
+    @apply bg-surface-0 text-nyaya-100 font-sans antialiased;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    @apply bg-nyaya-600/20 text-nyaya-100;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-nyaya-300/40 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-nyaya-400/50;
+  }
 }
 
-::selection {
-  background-color: rgba(217, 64, 64, 0.3);
-  color: #1A1A1A;
-}
+@layer components {
+  /* Card system */
+  .glass-card {
+    @apply bg-surface-2 border border-[#E8E8E8] rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.06)];
+  }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background-color: rgba(26, 26, 26, 0.4);
-  border-radius: 9999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(26, 26, 26, 0.5);
+  .glass-card-hover {
+    @apply glass-card transition-all duration-200;
+  }
+  .glass-card-hover:hover {
+    @apply border-[#D0D0D0] shadow-[0_16px_48px_rgba(0,0,0,0.10),0_2px_8px_rgba(0,0,0,0.04)];
+    transform: translateY(-1px);
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply px-5 py-2.5 bg-nyaya-600 text-white text-sm font-semibold tracking-[0.02em] rounded-lg
+           transition-all duration-200 hover:bg-nyaya-700
+           active:scale-[0.98];
+  }
+
+  .btn-saffron {
+    @apply px-5 py-2.5 bg-accent-500 text-white text-sm font-semibold tracking-[0.02em] rounded-lg
+           transition-all duration-200 hover:bg-accent-600
+           active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply px-5 py-2.5 bg-surface-1 text-nyaya-100 border border-[#E8E8E8] text-sm font-semibold tracking-[0.02em] rounded-lg
+           transition-all duration-200 hover:bg-[#EDE5D5]
+           active:scale-[0.98];
+  }
+
+  .btn-ghost {
+    @apply px-3 py-1.5 text-nyaya-400 hover:text-nyaya-100 hover:bg-surface-1 rounded-lg
+           transition-all duration-150 text-sm font-medium;
+  }
+
+  /* Inputs */
+  .input-field {
+    @apply w-full px-4 py-2.5 bg-surface-0 border border-[#E8E8E8] rounded-lg text-nyaya-100 text-sm
+           placeholder:text-nyaya-500 focus:outline-none focus:border-nyaya-600/40
+           focus:ring-2 focus:ring-nyaya-600/10 transition-all duration-150;
+  }
+
+  /* Badges */
+  .badge-green {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold
+           bg-[#E8F5E9] text-[#2E7D32] border border-[#C8E6C9];
+  }
+  .badge-yellow {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold
+           bg-[#FFF8E1] text-[#F57F17] border border-[#FFECB3];
+  }
+  .badge-red {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-[10px] uppercase font-bold tracking-[0.08em]
+           bg-[#F5E6E6] text-[#D94040] border border-[#D94040]/20;
+  }
+
+  /* Verdict dots */
+  .verdict-dot {
+    @apply w-2.5 h-2.5 rounded-full;
+  }
+  .verdict-dot-green { @apply bg-verdict-green; }
+  .verdict-dot-yellow { @apply bg-verdict-yellow; }
+  .verdict-dot-red { @apply bg-verdict-red; }
+
+  /* Typography */
+  .section-title {
+    @apply text-base font-display font-semibold text-nyaya-100 tracking-tight;
+  }
+  .section-subtitle {
+    @apply text-sm text-nyaya-400;
+  }
+
+  .stat-value {
+    @apply text-2xl font-display font-bold text-nyaya-100;
+  }
+
+  .gradient-text {
+    @apply text-nyaya-100;
+  }
+
+  .divider {
+    @apply border-t border-[#E8E8E8] my-4;
+  }
+
+  /* Accent line for active elements */
+  .accent-line {
+    @apply w-1 h-full bg-nyaya-600 rounded-full;
+  }
 }
 
 /* Smooth page transitions */
