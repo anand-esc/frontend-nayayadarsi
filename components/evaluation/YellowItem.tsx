@@ -61,7 +61,7 @@ function YellowItemInner({ item, officerId, onDecision }: YellowItemProps) {
             {item.blocker && <span className="badge-red text-[10px]">BLOCKER</span>}
             {item.mandatory && <span className="badge-red text-[10px]">MANDATORY</span>}
           </div>
-          <p className="text-sm font-medium text-white">{item.company_name}</p>
+          <p className="text-sm font-medium text-nyaya-100">{item.company_name}</p>
           <p className="text-xs text-nyaya-500 mt-0.5">
             {item.criterion_id} — {item.criterion || item.flag_reason}
           </p>

@@ -122,7 +122,7 @@ export default function MapView({
   const center: [number, number] = [sitePosition.lat, sitePosition.lng];
 
   return (
-    <div className="relative w-full h-full rounded-xl overflow-hidden border border-white/[0.06]">
+    <div className="relative w-full h-full rounded-xl overflow-hidden border border-[#E8E8E8]">
       {/* CSS for marker animations */}
       <style jsx global>{`
         @keyframes ping {

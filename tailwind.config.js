@@ -8,38 +8,38 @@ module.exports = {
     extend: {
       colors: {
         nyaya: {
-          50: '#f8fafc',
-          100: '#f1f5f9', // Text primary
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8', // Text secondary
-          500: '#475569', // Text muted
-          600: '#3b82f6', // Primary accent
-          700: '#2563eb',
-          800: '#1d4ed8',
-          900: '#1e3a8a',
-          950: '#172554',
+          50: '#FFFFFF',
+          100: '#1A1A1A', // Text primary
+          200: '#333333',
+          300: '#4A4A4A',
+          400: '#5A5A5A', // Text secondary
+          500: '#9A9A9A', // Text muted
+          600: '#D94040', // Primary accent (Sindoor Red)
+          700: '#B03030', // Darker Red
+          800: '#8A1F1F',
+          900: '#631414',
+          950: '#400A0A',
         },
         accent: {
-          50: '#fffbeb',
-          100: '#fef3c7',
-          200: '#fde68a',
-          300: '#fcd34d',
-          400: '#fbbf24',
-          500: '#f59e0b', // Justice gold / Warning yellow
-          600: '#d97706',
+          50: '#F5E6E6',
+          100: '#EBC7C7',
+          200: '#DFA3A3',
+          300: '#CF7A7A',
+          400: '#C25959',
+          500: '#D94040', // Sindoor Red
+          600: '#B03030',
         },
         surface: {
-          0: '#0a0f1e', // Background
-          1: '#0d1421', // Surface cards
-          2: '#111a2b',
-          3: '#152136',
-          4: '#1a2741',
+          0: '#FAF9F6', // Background (warm off-white)
+          1: '#F5F0E8', // Surface secondary (cream)
+          2: '#FFFFFF', // Surface cards
+          3: '#F0EBE1',
+          4: '#FFFFFF',
         },
         verdict: {
-          green: '#10b981', // Safe green
-          yellow: '#f59e0b', // Warning yellow
-          red: '#ef4444', // Alert red
+          green: '#2E7D32', // Safe green
+          yellow: '#F57F17', // Warning yellow
+          red: '#D94040', // Alert red
         },
         emerald: {
           600: '#059669',
@@ -56,8 +56,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        display: ['Outfit', 'Inter', 'sans-serif'],
+        sans: ['DM Sans', 'sans-serif'],
+        display: ['Poppins', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
       animation: {

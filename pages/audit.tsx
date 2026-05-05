@@ -59,12 +59,12 @@ export default function AuditDashboard() {
         <title>Audit Trail — Nyayadarsi</title>
       </Head>
       <Layout title="Cryptographic Audit Trail">
-        <div className="max-w-5xl mx-auto space-y-8">
+        <div className="max-w-5xl mx-auto space-y-8 p-8 min-h-screen">
           
           {/* Top Bar */}
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-xl font-display font-bold text-white">System Integrity Ledger</h3>
+              <h3 className="text-xl font-display font-bold text-nyaya-100">System Integrity Ledger</h3>
               <p className="text-xs text-nyaya-500 mt-1 uppercase tracking-widest font-mono">
                 SHA-256 Immutable Chain • Court Admissible Evidence
               </p>
@@ -108,12 +108,12 @@ export default function AuditDashboard() {
             <div className="glass-card p-6 border-nyaya-600/20 flex flex-col gap-4">
               <div className="flex items-center gap-2 mb-2">
                 <Shield className="w-4 h-4 text-nyaya-400" />
-                <span className="text-xs font-bold uppercase tracking-wider text-white/80">Submit Evidence</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-nyaya-400">Submit Evidence</span>
               </div>
               
               <div 
                 className={`flex-1 min-h-[140px] border-2 border-dashed rounded-xl flex flex-col items-center justify-center gap-3 transition-all cursor-pointer ${
-                  file ? 'border-nyaya-400/40 bg-nyaya-400/5' : 'border-white/10 hover:border-white/20 bg-white/[0.02]'
+                  file ? 'border-nyaya-400/40 bg-nyaya-400/5' : 'border-[#E8E8E8] hover:border-[#E8E8E8] bg-surface-1'
                 }`}
                 onClick={() => document.getElementById('evidence-upload')?.click()}
               >
@@ -122,13 +122,13 @@ export default function AuditDashboard() {
                   <>
                     <FileText className="w-8 h-8 text-nyaya-400" />
                     <div className="text-center px-4">
-                      <p className="text-xs font-medium text-white truncate max-w-[200px]">{file.name}</p>
+                      <p className="text-xs font-medium text-nyaya-100 truncate max-w-[200px]">{file.name}</p>
                       <p className="text-[10px] text-nyaya-500 mt-1 uppercase font-mono">{(file.size / 1024).toFixed(1)} KB</p>
                     </div>
                   </>
                 ) : (
                   <>
-                    <UploadCloud className="w-8 h-8 text-white/20" />
+                    <UploadCloud className="w-8 h-8 text-nyaya-400" />
                     <p className="text-[10px] text-nyaya-500 uppercase tracking-widest">Select Evidence PDF/TXT</p>
                   </>
                 )}
@@ -137,7 +137,7 @@ export default function AuditDashboard() {
               <button
                 onClick={handleUpload}
                 disabled={!file || uploading}
-                className="w-full py-2.5 rounded-lg bg-nyaya-600 hover:bg-nyaya-500 text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-all disabled:opacity-30 flex items-center justify-center gap-2"
+                className="w-full py-2.5 rounded-lg bg-nyaya-600-white text-[10px] font-bold uppercase tracking-[0.2em] transition-all disabled:opacity-30 flex items-center justify-center gap-2"
               >
                 {uploading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Cpu className="w-3.5 h-3.5" />}
                 {uploading ? 'Analyzing...' : 'Run AI Analysis'}
@@ -152,8 +152,8 @@ export default function AuditDashboard() {
             </div>
 
             {/* Analysis Output Terminal */}
-            <div className="glass-card flex flex-col bg-surface-1 border-white/[0.06] overflow-hidden min-h-[300px]">
-              <div className="px-4 py-2 bg-white/[0.03] border-b border-white/[0.06] flex items-center justify-between">
+            <div className="glass-card flex flex-col bg-surface-1 border-[#E8E8E8] overflow-hidden min-h-[300px]">
+              <div className="px-4 py-2 bg-surface-1 border-b border-[#E8E8E8] flex items-center justify-between">
                 <div className="flex gap-1.5">
                   <div className="w-2 h-2 rounded-full bg-verdict-red/40" />
                   <div className="w-2 h-2 rounded-full bg-verdict-yellow/40" />
@@ -181,12 +181,12 @@ export default function AuditDashboard() {
                   ) : analysis ? (
                     <motion.div 
                       key="result" initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                      className="font-mono text-[13px] leading-relaxed text-white/80 whitespace-pre-wrap"
+                      className="font-mono text-[13px] leading-relaxed text-nyaya-400 whitespace-pre-wrap"
                     >
                       {analysis}
                     </motion.div>
                   ) : (
-                    <div className="h-full flex flex-col items-center justify-center gap-3 text-white/10 opacity-40">
+                    <div className="h-full flex flex-col items-center justify-center gap-3 text-nyaya-400 opacity-40">
                       <Shield className="w-12 h-12 stroke-[1]" />
                       <p className="text-[10px] tracking-[0.2em] uppercase">Await Evidence Submission</p>
                     </div>

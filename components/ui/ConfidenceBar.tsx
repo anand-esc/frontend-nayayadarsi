@@ -13,7 +13,7 @@ function ConfidenceBarInner({ value }: ConfidenceBarProps) {
 
   return (
     <div className="flex items-center gap-2">
-      <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
+      <div className="flex-1 h-1.5 bg-surface-1 rounded-full overflow-hidden">
         <div
           className={`h-full rounded-full ${color} transition-all duration-500`}
           style={{ width: `${pct}%` }}

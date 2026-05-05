@@ -25,19 +25,19 @@ export default function Layout({ children, title }: LayoutProps) {
   return (
     <div className="min-h-screen flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-surface-1 border-r border-white/[0.06] flex flex-col fixed h-full z-20">
+      <aside className="w-64 bg-surface-1 border-r border-[#E8E8E8] flex flex-col fixed h-full z-20">
         {/* Brand */}
-        <Link href="/" className="block px-5 py-5 border-b border-white/[0.06] group">
+        <Link href="/" className="block px-5 py-5 border-b border-[#E8E8E8] group">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-lg bg-nyaya-600 flex items-center justify-center">
-              <Scale className="w-4 h-4 text-white" />
+              <Scale className="w-4 h-4 text-nyaya-100" />
             </div>
-            <span className="text-sm font-display font-bold text-white tracking-tight">{APP_NAME}</span>
+            <span className="text-sm font-display font-bold text-nyaya-100 tracking-tight">{APP_NAME}</span>
           </div>
         </Link>
 
         {/* Navigation */}
-        <nav className="flex-1 p-3 space-y-0.5" aria-label="Main navigation">
+        <nav className="p-3 space-y-0.5" aria-label="Main navigation">
           {NAV_ITEMS.map((item) => {
             const isActive = router.pathname === item.href;
             return (
@@ -46,8 +46,8 @@ export default function Layout({ children, title }: LayoutProps) {
                 href={item.href}
                 className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg transition-all duration-150 group ${
                   isActive
-                    ? 'bg-nyaya-600/15 text-white'
-                    : 'text-nyaya-300 hover:text-white hover:bg-white/[0.04]'
+                    ? 'bg-nyaya-600/10 text-nyaya-600'
+                    : 'text-nyaya-400 hover:text-nyaya-100 hover:bg-surface-1'
                 }`}
                 aria-current={isActive ? 'page' : undefined}
               >
@@ -67,7 +67,7 @@ export default function Layout({ children, title }: LayoutProps) {
         </nav>
 
         {/* Footer */}
-        <div className="p-4 border-t border-white/[0.06]">
+        <div className="p-4 border-t border-[#E8E8E8] mt-auto">
           <div className="text-[11px] text-nyaya-500 space-y-0.5">
             <p className="font-medium text-nyaya-400">Coding Aghoris</p>
             <p>PAN IIT AI for Bharat</p>
@@ -76,20 +76,8 @@ export default function Layout({ children, title }: LayoutProps) {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 ml-64">
-        <header className="sticky top-0 z-10 bg-surface-0/90 backdrop-blur-sm border-b border-white/[0.06] px-8 py-3.5">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-sm font-display font-semibold text-white">{title || 'Dashboard'}</h2>
-              <p className="text-[11px] text-nyaya-500 mt-0.5">AI-Powered Procurement Accountability</p>
-            </div>
-            <div className="flex items-center gap-2 px-2.5 py-1 rounded-md bg-verdict-green/10 border border-verdict-green/15">
-              <div className="w-1.5 h-1.5 rounded-full bg-verdict-green" />
-              <span className="text-[11px] text-verdict-green font-medium">Online</span>
-            </div>
-          </div>
-        </header>
-        <div className="p-8">{children}</div>
+      <main className="flex-1 ml-64 min-h-screen">
+        {children}
       </main>
     </div>
   );
